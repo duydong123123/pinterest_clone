@@ -9,7 +9,7 @@ export const Pin = styled.div`
   border-radius: 1.25em;
   grid-row-end: span ${(props) => props.spanHeight};
   overflow: hidden;
-
+  
   :hover > div{
     opacity: 1;
   }

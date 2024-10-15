@@ -24,167 +24,348 @@ import downloadIcon from "./images/download-icon.png";
 import goIcon from "./images/top-right-arrow.png";
 import profilePicture from "./images/avatar-cute-vui-nhon.jpg"; // Đường dẫn đến ảnh đại diện người dùng
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"; // Import các component từ react-router-dom
+import InboxPopup from "./components/InboxPopup.style";
+import HelpIcon from "./components/HelpIcon.style";
+import SaveFromWebPage from "./components/SaveFromWebPage";
 
-// Trang Tạo Ghim
+
+// Sidebar Component
+const Sidebar = ({ isOpen, toggleSidebar }) => (
+    <div style={{
+      width: isOpen ? '300px' : '90px',
+      height: 'calc(100vh - 80px)',
+      position: 'fixed',
+      top: '80px',
+      left: 0,
+      backgroundColor: '#fff',
+      padding: isOpen ? '20px' : '10px',
+      display: 'flex',
+      flexDirection: 'column',
+      zIndex: 1000,
+      transition: 'width 0.3s',
+      borderRight: '1px solid #ddd',
+      justifyContent: 'flex-start',
+    }}>
+      {/* Container cho nút mũi tên và dấu cộng */}
+      <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          fontSize: '24px',
+          marginBottom: '10px',
+          height: isOpen ? 'auto' : '100%', // Chiều cao tối ưu khi đóng
+      }}>
+        {!isOpen && (
+          <>
+            <button
+              onClick={toggleSidebar}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                marginTop: '25px',
+              }}
+            >
+              ≫
+            </button>
+            <button
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '24px',
+                color: '#333',
+                marginTop: '40px',
+              }}
+            >
+              +
+            </button>
+          </>
+        )}
+      </div>
+      {isOpen && (
+        <>
+          {/* Container cho Bản nháp Ghim và mũi tên ngược */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            marginBottom: '20px',
+            marginTop: '7px',
+          }}>
+            <div style={{
+              fontSize: '24px',
+              fontWeight: 'bold',
+              lineHeight: '1',
+            }}>
+              Bản nháp Ghim
+            </div>
+            <button
+              onClick={toggleSidebar}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '24px',
+                fontWeight: 'bold',
+              }}
+            >
+              ≪
+            </button>
+          </div>
+          <button style={{
+            background: '#E0E0E0',
+            border: 'none',
+            borderRadius: '20px',
+            cursor: 'pointer',
+            color: '#333',
+            padding: '10px',
+            fontWeight: 'bold',
+            width: '100%',
+            textAlign: 'center',
+          }}>
+            Tạo mới
+          </button>
+        </>
+      )}
+    </div>
+);
+// trang chủ tạo
+
 const CreatePage = () => {
-   const navigate = useNavigate(); // Hook điều hướng từ react-router-dom
-   const [selectedFile, setSelectedFile] = useState(null);
-   const [fileType, setFileType] = useState(""); // Trạng thái để lưu loại tệp (ảnh/video)
-   const [showNotification, setShowNotification] = useState(false);
-   const [showMessage, setShowMessage] = useState(false);
-   const [showUserDropdown, setShowUserDropdown] = useState(false); // Trạng thái dropdown người dùng
+    const navigate = useNavigate();
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
 
-   // Xử lý khi người dùng chọn tệp
-   const handleFileChange = (event) => {
-       const file = event.target.files[0];
-       if (file) {
-           const fileExtension = file.name.split('.').pop().toLowerCase(); // Lấy phần mở rộng của tệp
-           setFileType(fileExtension); // Lưu loại tệp
-           setSelectedFile(URL.createObjectURL(file)); // Hiển thị URL tạm thời cho ảnh/video
-       }
-   };
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
 
-   const handleHomeClick = () => {
-       navigate("/"); // Điều hướng về trang chủ
-   };
+    const handleFileUploadClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
 
-   return (
-       <>
-           {/* Header giống như trang chính */}
-           <MenuBar>
-               <Logo>
-                   <img src={logo} alt="Logo" />
-               </Logo>
-               <ButtonGroup>
-                   <CustomButton onClick={handleHomeClick}>Trang Chủ</CustomButton> {/* Nút Trang Chủ sẽ điều hướng về trang chủ */}
-                   <CustomButton>Tạo</CustomButton>
-               </ButtonGroup>
-               <Form style={{ marginLeft: "20px", display: "flex", alignItems: "center" }}>
-                   <SearchBar placeholder="Search" />
-                   <div style={{ display: "flex", alignItems: "center", marginLeft: "20px", position: "relative" }}>
-                       <div
-                           onMouseEnter={() => setShowNotification(true)}
-                           onMouseLeave={() => setShowNotification(false)}
-                           style={{ position: "relative" }}
-                       >
-                           <NotificationIcon />
-                       </div>
-                       <div
-                           onMouseEnter={() => setShowMessage(true)}
-                           onMouseLeave={() => setShowMessage(false)}
-                           style={{ marginLeft: "20px", position: "relative" }}
-                       >
-                           <MessageIcon />
-                       </div>
-                       <div
-                           onClick={() => setShowUserDropdown(!showUserDropdown)}
-                           style={{ marginLeft: "20px", position: "relative" }}
-                       >
-                           <UserIcon />
-                           <DropdownIcon />
-                       </div>
-                   </div>
-               </Form>
-           </MenuBar>
-           <hr style={{ margin: '10px 0', border: '0', borderTop: '1px solid #ddd' }} />
-           {/* Nội dung của trang Tạo Ghim */}
-           <div style={{ padding: '10px', marginTop: '0px' }}>
-               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                   <h2 style={{ margin: 0 }}>Tạo Ghim</h2>
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedFile(URL.createObjectURL(file));
+        }
+    };
 
-                   {/* Nút "Đăng" căn về bên phải, cùng dòng với tiêu đề */}
-                   <button 
-                       style={{ 
-                           padding: '10px 20px', 
-                           borderRadius: '20px', 
-                           backgroundColor: 'red', 
-                           color: 'black', 
-                           border: 'none',
-                           fontWeight: 'bold',
-                           cursor: 'pointer'
-                       }}
-                   >
-                       Đăng
-                   </button>
-               </div>
+    const handleSaveFromURLClick = () => {
+        navigate("/save-url"); // Điều hướng đến trang lưu từ URL
+    };
 
-               <hr style={{ margin: '20px 0', border: '1px solid #ddd' }} />
+    const handleChangeFileClick = () => {
+        setSelectedFile(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
 
-               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                   {/* Phần kéo thả file */}
-                   <div style={{ width: '40%', padding: '20px', border: '1px dashed #ccc', borderRadius: '12px', textAlign: 'center' }}>
-                       {selectedFile ? (
-                           <div style={{ marginBottom: '20px', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '12px' }}>
-                               {["jpeg", "jpg", "png", "gif"].includes(fileType) ? (
-                                   <img src={selectedFile} alt="Uploaded" style={{ maxWidth: '100%', borderRadius: '12px' }} />
-                               ) : (
-                                   <video controls style={{ maxWidth: '100%', borderRadius: '12px' }}>
-                                       <source src={selectedFile} type="video/mp4" />
-                                   </video>
-                               )}
-                           </div>
-                       ) : (
-                           <div style={{ marginBottom: '20px', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '12px' }}>
-                               <span>Chọn một tệp hoặc kéo và thả tệp ở đây</span>
-                           </div>
-                       )}
-
-                       <p style={{ fontSize: '12px', color: '#999' }}>
-                           Bạn nên sử dụng tệp tin .jpg chất lượng cao có kích thước dưới 20 MB hoặc tệp tin .mp4 chất lượng cao có kích thước dưới 200 MB.
-                       </p>
-
-                       {/* Thêm input để tải lên tệp */}
-                       <input
-                           type="file"
-                           accept="image/*,video/*"
-                           onChange={handleFileChange}
-                           style={{ marginTop: '20px' }}
-                       />
-                   </div>
-
-                   {/* Form nhập tiêu đề, mô tả, liên kết */}
-                   <div style={{ width: '55%', padding: '20px' }}>
-                       <form>
-                           <div style={{ marginBottom: '15px' }}>
-                               <label>Tiêu đề</label>
-                               <input type="text" placeholder="Thêm tiêu đề" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
-                           </div>
-                           <div style={{ marginBottom: '15px' }}>
-                               <label>Mô tả</label>
-                               <textarea placeholder="Thêm mô tả chi tiết" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc', height: '100px' }}></textarea>
-                           </div>
-                           <div style={{ marginBottom: '15px' }}>
-                               <label>Liên kết</label>
-                               <input type="text" placeholder="Thêm liên kết" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
-                           </div>
-                           <div style={{ marginBottom: '15px' }}>
-                               <label>Bảng</label>
-                               <select style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }}>
-                                   <option>Chọn bảng</option>
-                               </select>
-                           </div>
-                           <div style={{ marginBottom: '15px' }}>
-                               <label>Chủ đề được gắn thẻ (0)</label>
-                               <input type="text" placeholder="Tìm kiếm thẻ" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
-                           </div>
-                       </form>
-                   </div>
-               </div>
-
-           </div>
-       </>
-   );
+    return (
+        <>
+            <MenuBar style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1001 }}>
+                <Logo>
+                    <img src={logo} alt="Logo" />
+                </Logo>
+                <ButtonGroup>
+                    <CustomButton onClick={() => navigate("/")}>Trang Chủ</CustomButton>
+                    <CustomButton>Tạo</CustomButton>
+                </ButtonGroup>
+                <Form style={{ marginLeft: "10px", display: "flex", alignItems: "center" }}>
+                    <SearchBar placeholder="Tìm kiếm" />
+                    <div style={{ display: "flex", alignItems: "center", marginLeft: "20px", position: "relative" }}>
+                        <div onMouseEnter={() => { }} onMouseLeave={() => { }} style={{ position: "relative" }}>
+                            <NotificationIcon />
+                        </div>
+                        <div onMouseEnter={() => { }} onMouseLeave={() => { }} style={{ marginLeft: "10px", position: "relative" }}>
+                            <MessageIcon />
+                        </div>
+                        <div onClick={() => { }} style={{ marginLeft: "20px", position: "relative" }}>
+                            <UserIcon />
+                            <DropdownIcon />
+                        </div>
+                    </div>
+                </Form>
+            </MenuBar>
+            <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+            <div style={{
+                padding: '20px',
+                marginTop: '80px',
+                marginLeft: isSidebarOpen ? '320px' : '90px',
+                transition: 'margin-left 0.3s',
+            }}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    height: '40px',
+                    margin: '10px 0',
+                    position: 'relative',
+                }}>
+                    <h2 style={{
+                        margin: 0,
+                        fontSize: '24px',
+                        lineHeight: '1',
+                        display: 'flex',
+                        alignItems: 'center',
+                    }}>
+                        Tạo Ghim
+                    </h2>
+                    <button style={{
+                        padding: '10px 20px',
+                        borderRadius: '20px',
+                        backgroundColor: 'red',
+                        color: 'black',
+                        border: 'none',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                    }}>
+                        Đăng
+                    </button>
+                </div>
+                <hr style={{ margin: '0 0 20px 0', border: '1px solid #ddd', borderRight: 'none' }} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                        {!selectedFile ? (
+                            <div style={{
+                                width: '500px',
+                                padding: '20px',
+                                border: '1px dashed #ccc',
+                                borderRadius: '12px',
+                                textAlign: 'center',
+                                backgroundColor: '#f5f5f5',
+                                position: 'relative',
+                                cursor: 'pointer',
+                            }}
+                                onClick={handleFileUploadClick} // Chỉ mở khi người dùng click vào
+                            >
+                                <div style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    backgroundColor: '#000',
+                                    borderRadius: '50%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    margin: '0 auto',
+                                    marginBottom: '10px',
+                                    marginTop: '30px',
+                                }}>
+                                    <span style={{
+                                        fontSize: '20px',
+                                        color: '#fff',
+                                        fontWeight: 'bold',
+                                    }}>
+                                        ↑
+                                    </span>
+                                </div>
+                                <p style={{ margin: '100px 0', fontSize: '16px' }}>Chọn một tệp hoặc kéo và thả tệp ở đây</p>
+                                <p style={{ fontSize: '12px', color: '#999' }}>
+                                    Bạn nên sử dụng tệp tin .jpg chất lượng cao có kích thước dưới 20 MB hoặc tệp tin .mp4 chất lượng cao có kích thước dưới 200 MB.
+                                </p>
+                                <input
+                                    type="file"
+                                    accept="image/*,video/*"
+                                    ref={fileInputRef}
+                                    style={{ display: 'none' }}
+                                    onChange={handleFileChange}
+                                />
+                            </div>
+                        ) : (
+                            <div style={{ position: 'relative', textAlign: 'center' }}>
+                                {selectedFile.includes('.mp4') ? (
+                                    <video controls width="500px">
+                                        <source src={selectedFile} type="video/mp4" />
+                                    </video>
+                                ) : (
+                                    <img src={selectedFile} alt="Selected" style={{ width: '500px', borderRadius: '12px' }} />
+                                )}
+                                <button
+                                    onClick={handleChangeFileClick}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '10px',
+                                        right: '10px',
+                                        background: 'rgba(0, 0, 0, 0.6)',
+                                        color: '#fff',
+                                        border: 'none',
+                                        borderRadius: '50%',
+                                        padding: '10px',
+                                        cursor: 'pointer',
+                                    }}
+                                >
+                                    ⟳
+                                </button>
+                            </div>
+                        )}
+                        <hr style={{ width: '500px', margin: '30px auto', border: '1px solid #ddd' }} />
+                        <button
+                            onClick={handleSaveFromURLClick}
+                            style={{
+                                padding: '10px 20px',
+                                borderRadius: '20px',
+                                backgroundColor: '#E0E0E0',
+                                color: '#333',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                width: '500px',
+                                textAlign: 'center',
+                                marginTop: '10px',
+                            }}
+                        >
+                            Lưu từ URL
+                        </button>
+                    </div>
+                    <div style={{ width: '55%', padding: '20px' }}>
+                        <form>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label>Tiêu đề</label>
+                                <input type="text" placeholder="Thêm tiêu đề" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label>Mô tả</label>
+                                <textarea placeholder="Thêm mô tả chi tiết" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc', height: '100px' }}></textarea>
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label>Liên kết</label>
+                                <input type="text" placeholder="Thêm liên kết" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label>Bảng</label>
+                                <select style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }}>
+                                    <option>Chọn bảng</option>
+                                </select>
+                            </div>
+                            <div style={{ marginBottom: '15px' }}>
+                                <label>Chủ đề được gắn thẻ (0)</label>
+                                <input type="text" placeholder="Tìm kiếm thẻ" style={{ width: '100%', padding: '10px', borderRadius: '12px', border: '1px solid #ccc' }} />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <HelpIcon />
+        </>
+    );
 };
 
-
+// trang chủ
 function App() {
     const [input, setInput] = useState("");
     const [query, setQuery] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
     const [showNotification, setShowNotification] = useState(false);
-    const [showMessage, setShowMessage] = useState(false);
-    const [showUserDropdown, setShowUserDropdown] = useState(false); // Trạng thái dropdown người dùng
-    const navigate = useNavigate(); // Hook điều hướng từ react-router-dom
+    const [showMessagePopup, setShowMessagePopup] = useState(false);
+    const [showUserDropdown, setShowUserDropdown] = useState(false);
+    const navigate = useNavigate(); 
 
     const pinWidth = 252;
 
@@ -209,7 +390,7 @@ function App() {
     };
 
     const handleCreateClick = () => {
-        navigate("/create"); // Điều hướng đến trang /create
+        navigate("/create");
     };
 
     const mappedPins = pins && pins.map((pin, index) => (
@@ -253,14 +434,14 @@ function App() {
                 </Logo>
                 <ButtonGroup>
                     <CustomButton>Trang Chủ</CustomButton>
-                    <CustomButton onClick={handleCreateClick}>Tạo</CustomButton> {/* Nút chuyển hướng đến trang Tạo */}
+                    <CustomButton onClick={handleCreateClick}>Tạo</CustomButton>
                 </ButtonGroup>
                 <Form onSubmit={onFormSubmit} style={{ marginLeft: "20px", display: "flex", alignItems: "center" }}>
                     <SearchBar
                         placeholder="Search"
                         onChange={(e) => setInput(e.target.value)}
                         value={input}
-                        style={{ height: "48px" }} // Giảm chiều rộng của thanh tìm kiếm
+                        style={{ height: "48px" }} 
                     />
                     <div style={{ display: "flex", alignItems: "center", marginLeft: "20px", position: "relative" }}>
                         <div
@@ -272,12 +453,11 @@ function App() {
                             {showNotification && <NotificationDropdown>Thông báo</NotificationDropdown>}
                         </div>
                         <div
-                            onMouseEnter={() => setShowMessage(true)}
-                            onMouseLeave={() => setShowMessage(false)}
+                            onClick={() => setShowMessagePopup(!showMessagePopup)}
                             style={{ marginLeft: "10px", position: "relative" }}
                         >
                             <MessageIcon />
-                            {showMessage && <MessageDropdown>Tin nhắn</MessageDropdown>}
+                            {showMessagePopup && <InboxPopup onClose={() => setShowMessagePopup(false)} />}
                         </div>
                         <div
                             onClick={() => setShowUserDropdown(!showUserDropdown)}
@@ -321,15 +501,15 @@ function App() {
         </>
     );
 }
-
 // Bọc ứng dụng với Router để điều hướng
 export default function AppWrapper() {
-   const basename = process.env.NODE_ENV === 'production' ? '/pinterest-clone' : '';
+   const basename = process.env.NODE_ENV === 'production' ? '/pinterest_clone' : '';
    return (
       <Router basename={basename}>
          <Routes>
             <Route path="/" element={<App />} />
             <Route path="/create" element={<CreatePage />} />
+            <Route path="/save-url" element={<SaveFromWebPage />} /> {/* Thêm dòng này */}
          </Routes>
       </Router>
    );

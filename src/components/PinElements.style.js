@@ -6,4 +6,5 @@ export const PinElements = styled.div`
   display: flex;
   overflow: hidden;
   flex-direction: row;
+  
 `;

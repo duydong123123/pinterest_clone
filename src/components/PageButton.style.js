@@ -17,8 +17,9 @@ export const PageButton = styled.button`
   cursor: pointer;
   height: 3em;
   margin: 0 0 0 1em;
-
+  
   :hover{
     background-color: rgba(255, 255, 255, 1);
   }
+    
 `;

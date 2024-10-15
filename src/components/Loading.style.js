@@ -6,6 +6,7 @@ const spinningAnimation = keyframes`
 `
 
 export const Loading = styled.img`
+
 width: 100px;
 height: auto;
 display: block;

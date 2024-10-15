@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+// chỉnh top giữa header và body
 export const PinGrid = styled.div`
   width: 100%;
   height: 100%;
@@ -8,4 +8,5 @@ export const PinGrid = styled.div`
   grid-auto-rows: 10px;
   column-gap: 1.25rem;
   justify-content: center;
+  padding-top: 6em; /* Thêm khoảng cách bằng với chiều cao của MenuBar */
 `;
