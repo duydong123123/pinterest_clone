@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from "styled-components";
 
 // Styled Component cho MenuBar
@@ -18,16 +18,5 @@ export const MenuBar = styled.div`
   z-index: 1000; /* Giữ thanh này ở trên cùng so với các thành phần khác */
 `;
 
-const Header = () => {
-  return (
-    <MenuBar>
-      <div style={{ marginRight: "20px" }}>
-        <img src="/logo.png" alt="Logo" />
-      </div>
-      <div>Trang Chủ</div>
-      <div style={{ marginLeft: "20px" }}>Tạo</div>
-    </MenuBar>
-  );
-};
 
-export default Header;
+

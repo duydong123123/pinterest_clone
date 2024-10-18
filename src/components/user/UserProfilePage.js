@@ -1,6 +1,6 @@
 import React from "react";
-import avatar from "../images/avatar-cute-vui-nhon.jpg"; // Đường dẫn đến avatar
-import Header from "./Header"; // Import header
+import avatar from "../../images/avatar-cute-vui-nhon.jpg"; // Đường dẫn đến avatar
+import Header from "../header/Header"; // Import header
 
 const UserProfilePage = () => {
   return (
