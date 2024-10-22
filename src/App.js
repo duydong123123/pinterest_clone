@@ -1,11 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import useSearch from "./hooks/useSearch";
-// import { GlobalStyle } from "./components/globalStyles.style";
 import { Loading } from "./components/Loading.style";
-// import { MenuBar } from "./components/MenuBar.style";
-// import { Logo } from "./components/Logo.style";
-// import { Form } from "./components/Form.style";
-// import { SearchBar } from "./components/SearchBar.style";
 import { PinGrid } from "./components/PinGrid.style";
 import { PinContainer } from "./components/PinContainer.style";
 import { Pin } from "./components/Pin.style";
@@ -16,27 +11,26 @@ import { PageButton } from "./components/PageButton.style";
 import { DownloadButton } from "./components/DownloadButton.style";
 import { Title } from "./components/Title.style";
 import { User } from "./components/User.style";
-// import { ButtonGroup, CustomButton } from "./components/ButtonGroup.style"; // Import button styles
-// import { NotificationIcon, MessageIcon, UserDropdown, UserIcon, DropdownIcon, DropdownItem } from "./components/Icons.style";
-// import logo from "./images/logo.png";
 import loading from "./images/loading.svg";
 import downloadIcon from "./images/download-icon.png";
 import goIcon from "./images/top-right-arrow.png";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom"; // Import các component từ react-router-dom
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import các component từ react-router-dom
 import SaveFromWebPage from "./components/SaveFromWebPage";
 import UserProfilePage from "./components/user/UserProfilePage";
-import AddAccountPage from './components/optional/AddAccountPage';
-import SettingsPage from "./components/optional/SettingsPage";
+import AddAccountPage from './components/pages/AddAccountPage';
 import Header from "./components/header/Header";
-// import { useLocation } from "react-router-dom"; // Chỉ giữ useLocation nếu useNavigate đã được import ở trên
 
-import UpgradeToBusiness from "./components/optional/UpgradeToBusiness"; 
+import UpgradeToBusiness from "./components/pages/UpgradeToBusiness"; 
 import CreatePage from "./components/create/CreatePage";
+import NewsFeedSettings from "./components/pages/NewsFeedSettings";
+import LayoutSetting from "./components/sidebar/LayoutSetting";
+import SettingsPage from "./components/pages/SettingsPage";
+import ManageAccountPage from "./components/pages/ManageAccountPage";
 
 // trang chủ
 function MainApp() {
-    const [input, setInput] = useState("");
-    const [query, setQuery] = useState("");
+    // const [iunpt, setInput] = useState("");
+    const [query] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
     // const [showNotification, setShowNotification] = useState(false);
     // const [showDropdownMenu, setShowDropdownMenu] = useState(false); 
@@ -61,6 +55,33 @@ function MainApp() {
         if (node) observer.current.observe(node);
     }, [isLoading]);
 
+    const handleDownload = async (url) => {
+        try {
+            // Sử dụng fetch để lấy ảnh dưới dạng blob
+            const response = await fetch(url);
+            const blob = await response.blob();
+            
+            // Tạo URL tạm thời từ blob
+            const blobURL = window.URL.createObjectURL(blob);
+    
+            // Tạo thẻ <a> để tải ảnh
+            const link = document.createElement("a");
+            link.href = blobURL;
+            link.setAttribute("download", "image.jpg"); // Tên file tải về
+            document.body.appendChild(link);
+    
+            // Kích hoạt sự kiện click để tải ảnh
+            link.click();
+    
+            // Xóa thẻ <a> và URL blob sau khi tải
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobURL);
+        } catch (error) {
+            console.error("Tải ảnh thất bại:", error);
+        }
+    };
+    
+    
 
     const mappedPins = pins && pins.map((pin, index) => (
         <PinContainer
@@ -77,13 +98,13 @@ function MainApp() {
             >
                 <PinInfo>
                     <PinElements>
-                        <SaveButton>Save</SaveButton>
+                        <SaveButton>Lưu</SaveButton>
                     </PinElements>
                     <PinElements>
                         <PageButton background={goIcon}>
                             {pin.user.username}
                         </PageButton>
-                        <DownloadButton>
+                        <DownloadButton onClick={() => handleDownload(pin.urls.full)}>
                             <img src={downloadIcon} alt="Download" />
                         </DownloadButton>
                     </PinElements>
@@ -93,7 +114,8 @@ function MainApp() {
             {pin.user && <User><img src={pin.user.profile_image.small} alt="User" /><span>{pin.user.instagram_username}</span></User>}
         </PinContainer>
     ));
-
+    
+    
     return (
         <>
             <Header/>
@@ -133,10 +155,15 @@ export default function AppWrapper() {
             <Route path="/" element={<MainApp />} /> {/* Sử dụng MainApp thay vì App */}
             <Route path="/create" element={<CreatePage />} />
             <Route path="/save-url" element={<SaveFromWebPage />} /> {/* Route thêm trang lưu */}
-            <Route path="/user-profile" element={<UserProfilePage />} />{/* Route thêm trang user */}
             <Route path="/add-account" element={<AddAccountPage />} /> {/* Route thêm trang tk */}
-            <Route path="/settings" element={<SettingsPage />} />  {/* Route cho trang cài đặt */}
             <Route path="/upgrade" element={<UpgradeToBusiness/>} /> {/* Route cho trang chuyển đổi */}
+
+
+            <Route path="/settings" element={<LayoutSetting />} /> 
+            <Route path="/user-profile" element={<UserProfilePage />} />
+            <Route path="/settings/feed" element={<NewsFeedSettings />} />
+            <Route path="/settings/profile" element={<SettingsPage />} />
+            <Route path="/settings/account" element={<ManageAccountPage />} />
          </Routes>
       </Router>
    );

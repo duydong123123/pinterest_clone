@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Button, Table, TableRow, TableCell, Icon, FooterButtons } from '../../components/UpgradePage.styles'; // Import các style bạn đã định nghĩa
-import Header from '../../components/header/Header';
+import { Container, Button, Table, TableRow, TableCell, Icon, FooterButtons } from '../UpgradePage.styles'; // Import các style bạn đã định nghĩa
+import Header from '../header/Header';
 
 const UpgradeToBusiness = () => {
     const navigate = useNavigate();

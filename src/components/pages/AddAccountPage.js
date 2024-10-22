@@ -5,7 +5,7 @@ import Header from '../header/Header';
 const AddAccountPage = () => {
   return (
     <>
-      <Header /> Sử dụng header chung
+      <Header />
     <div style={{ padding: '20px', textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
       <h2 style={{ fontSize: '28px', marginBottom: '10px' }}>Thêm tài khoản</h2>
       <p style={{ fontSize: '16px', color: '#666', marginBottom: '30px' }}>
