@@ -58,7 +58,9 @@ const UserProfilePage = () => {
 
         <h3 style={{ marginTop: '20px' }}>Đã tạo</h3>
         <p>Chưa có gì để hiển thị! Ghim bạn tạo sẽ xuất hiện ở đây.</p>
-        <button style={{ marginTop: '20px', padding: '10px 20px', background: 'red', color: 'white', border: 'none', borderRadius: '20px', cursor: 'pointer' }}>
+        <button style={{ marginTop: '20px', padding: '10px 20px', background: 'red', color: 'white', border: 'none', borderRadius: '20px', cursor: 'pointer' }}
+        onClick={() => navigate('/create')}
+        >
           Tạo Ghim
         </button>
       </div>

@@ -52,12 +52,16 @@ const Button = styled.button`
   }
 `;
 
-const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 14px;
+const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between; /* Căn button sang bên phải */
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+`;
+
+const TextSection = styled.div`
+  flex-grow: 1;
 `;
 
 const RadioGroup = styled.div`
@@ -74,15 +78,17 @@ const RadioInput = styled.input`
   margin-right: 5px;
 `;
 
+const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 14px;
+`;
+
 const ButtonGroup = styled.div`
   display: flex;
   gap: 10px;
-`;
-
-const InputSectionText = styled.p`
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
 `;
 
 const ManageAccountPage = () => {
@@ -102,14 +108,20 @@ const ManageAccountPage = () => {
 
         <InputSection>
           <Label>Mật khẩu</Label>
-          <Input type="password" value="********" readOnly />
-          <Button>Thay đổi</Button>
+          <FlexRow>
+            <Input type="password" value="********" readOnly />
+            <Button>Thay đổi</Button>
+          </FlexRow>
         </InputSection>
 
         <InputSection>
           <Label>Chuyển đổi thành tài khoản doanh nghiệp</Label>
-          <p>Với tài khoản doanh nghiệp, bạn sẽ có quyền truy cập vào các công cụ chuyên nghiệp và phân tích để phát triển doanh nghiệp của bạn trên Pinterest.</p>
-          <Button>Chuyển đổi tài khoản</Button>
+          <FlexRow>
+            <TextSection>
+              Với tài khoản doanh nghiệp, bạn sẽ có quyền truy cập vào các công cụ chuyên nghiệp và phân tích để phát triển doanh nghiệp của bạn trên Pinterest.
+            </TextSection>
+            <Button>Chuyển đổi tài khoản</Button>
+          </FlexRow>
         </InputSection>
 
         {/* Thông tin cá nhân */}
@@ -153,16 +165,25 @@ const ManageAccountPage = () => {
 
         {/* Vô hiệu hóa và xóa */}
         <Title>Vô hiệu hóa và xóa</Title>
+
         <InputSection>
-          <Label>Hủy kích hoạt tài khoản</Label>
-          <InputSectionText>Tạm thời ẩn hồ sơ, Ghim và bảng của bạn</InputSectionText>
-          <Button>Hủy kích hoạt tài khoản</Button>
+          <FlexRow>
+            <div>
+              <Label>Hủy kích hoạt tài khoản</Label>
+              <p>Tạm thời ẩn hồ sơ, Ghim và bảng của bạn</p>
+            </div>
+            <Button>Hủy kích hoạt tài khoản</Button>
+          </FlexRow>
         </InputSection>
 
         <InputSection>
-          <Label>Xóa dữ liệu và tài khoản của bạn</Label>
-          <InputSectionText>Xóa vĩnh viễn dữ liệu của bạn và mọi thứ liên kết với tài khoản của bạn</InputSectionText>
-          <Button>Xóa tài khoản</Button>
+          <FlexRow>
+            <div>
+              <Label>Xóa dữ liệu và tài khoản của bạn</Label>
+              <p>Xóa vĩnh viễn dữ liệu của bạn và mọi thứ liên kết với tài khoản của bạn</p>
+            </div>
+            <Button>Xóa tài khoản</Button>
+          </FlexRow>
         </InputSection>
 
         {/* Nút lưu và thiết lập lại */}
@@ -176,4 +197,3 @@ const ManageAccountPage = () => {
 };
 
 export default ManageAccountPage;
-

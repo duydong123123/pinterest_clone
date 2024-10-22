@@ -74,7 +74,7 @@ const Header = () => {
                         <DropdownIcon />
                         {showUserDropdown && (
                             <UserDropdown>
-                                <DropdownItem>
+                                <DropdownItem onClick={() => navigate('/user-profile')}>
                                     <img src={profilePicture} alt="Profile" width="40" height="40" />
                                     <div>
                                         <strong>Sin ツ</strong>
@@ -85,10 +85,10 @@ const Header = () => {
                                 <DropdownItem onClick={() => navigate('/add-account')}>Thêm tài khoản</DropdownItem>
                                 <DropdownItem onClick={() => navigate('/upgrade')}>Chuyển đổi thành tài khoản doanh...</DropdownItem>
                                 <DropdownItem onClick={() => navigate('/settings')}>Cài đặt</DropdownItem>
-                                <DropdownItem onClick={() => navigate('/newsfeed-settings')}>Bộ điều chỉnh bảng tin nhà</DropdownItem>
+                                <DropdownItem onClick={() => navigate('/settings/feed')}>Bộ điều chỉnh bảng tin nhà</DropdownItem>
                                 <DropdownItem>Cài đặt ứng dụng Windows</DropdownItem>
-                                <DropdownItem>Cổng thông tin báo cáo vi phạm</DropdownItem>
-                                <DropdownItem>Quyền riêng tư của bạn</DropdownItem>
+                                <DropdownItem onClick={() => navigate('/ReportPortal')}>Cổng thông tin báo cáo vi phạm</DropdownItem>
+                                <DropdownItem onClick={() => navigate('/settings/privacy')}>Quyền riêng tư của bạn</DropdownItem>
                                 <DropdownItem>Trung tâm trợ giúp</DropdownItem>
                                 <DropdownItem>Điều khoản Dịch vụ</DropdownItem>
                                 <DropdownItem>Chính sách quyền riêng tư</DropdownItem>

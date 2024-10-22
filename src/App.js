@@ -26,18 +26,19 @@ import NewsFeedSettings from "./components/pages/NewsFeedSettings";
 import LayoutSetting from "./components/sidebar/LayoutSetting";
 import SettingsPage from "./components/pages/SettingsPage";
 import ManageAccountPage from "./components/pages/ManageAccountPage";
+import ProfileVisibilityPage from "./components/pages/ProfileVisibilityPage";
+import VerificationPage from "./components/pages/VerificationPage";
+import SocialMediaSettings from "./components/pages/SocialMediaSettings";
+import NotificationSettings from "./components/pages/NotificationSettings";
+import PrivacySettings from "./components/pages/PrivacySettings";
+import SecuritySettings from "./components/pages/SecuritySettings";
+import BrandContent from "./components/pages/BrandContent";
+import ReportPortal from "./components/pages/ReportPortal";
 
 // trang chủ
 function MainApp() {
-    // const [iunpt, setInput] = useState("");
     const [query] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
-    // const [showNotification, setShowNotification] = useState(false);
-    // const [showDropdownMenu, setShowDropdownMenu] = useState(false); 
-    // const [showMessagePopup, setShowMessagePopup] = useState(false);
-    // const [showUserDropdown, setShowUserDropdown] = useState(false);
-    // const navigate = useNavigate();
-    // const location = useLocation();
 
     const pinWidth = 252;
 
@@ -119,26 +120,6 @@ function MainApp() {
     return (
         <>
             <Header/>
-            {/* {location.pathname !== "/create" && (
-                <MenuBar>
-                    <Logo>
-                        <img src={logo} alt="Logo" />
-                    </Logo>
-                    <ButtonGroup>
-                        <CustomButton>Trang Chủ</CustomButton>
-                        <CustomButton onClick={() => navigate("/create")}>Tạo</CustomButton>
-                    </ButtonGroup>
-                    <Form onSubmit={onFormSubmit} style={{ marginLeft: "20px", display: "flex", alignItems: "center" }}>
-                        <SearchBar
-                            placeholder="Search"
-                            onChange={(e) => setInput(e.target.value)}
-                            value={input}
-                            style={{ height: "48px" }}
-                        />
-                    </Form>
-                </MenuBar>
-            )} */}
-
             <PinGrid pinWidth={pinWidth}>
                 {mappedPins}
             </PinGrid>
@@ -157,6 +138,7 @@ export default function AppWrapper() {
             <Route path="/save-url" element={<SaveFromWebPage />} /> {/* Route thêm trang lưu */}
             <Route path="/add-account" element={<AddAccountPage />} /> {/* Route thêm trang tk */}
             <Route path="/upgrade" element={<UpgradeToBusiness/>} /> {/* Route cho trang chuyển đổi */}
+            <Route path="/ReportPortal" element={<ReportPortal />} /> {/* Route cho trang báo cáo */}
 
 
             <Route path="/settings" element={<LayoutSetting />} /> 
@@ -164,6 +146,13 @@ export default function AppWrapper() {
             <Route path="/settings/feed" element={<NewsFeedSettings />} />
             <Route path="/settings/profile" element={<SettingsPage />} />
             <Route path="/settings/account" element={<ManageAccountPage />} />
+            <Route path="/settings/display" element={<ProfileVisibilityPage />} />
+            <Route path="/settings/verified" element={<VerificationPage />} /> {/* Route cho trang xác thực */}
+            <Route path="/settings/social" element={<SocialMediaSettings />} /> {/* Route cho trang cài đặt mạng xã hội */}
+            <Route path="/settings/notifications" element={<NotificationSettings />} /> {/* Route cho trang cài đặt thông báo */}
+            <Route path="/settings/privacy" element={<PrivacySettings />} /> {/* Route cho trang cài đặt quyền riêng tư */}
+            <Route path="/settings/security" element={<SecuritySettings />} /> {/* Route cho trang cài đặt bảo mật */}
+            <Route path="/settings/branding" element={<BrandContent />} /> {/* Route cho trang quản lý nội dung */}
          </Routes>
       </Router>
    );
