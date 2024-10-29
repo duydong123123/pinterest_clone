@@ -2,7 +2,7 @@ import React from "react";
 import avatar from "../../images/avatar-cute-vui-nhon.jpg"; // Đường dẫn đến avatar
 import Header from "../header/Header"; // Import header
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-
+import HelpIcon from "../HelpIcon";
 const UserProfilePage = () => {
   const navigate = useNavigate(); // Sử dụng hook useNavigate
 
@@ -24,7 +24,7 @@ const UserProfilePage = () => {
   return (
     <>
       <Header /> {/* Sử dụng header chung */}
-      
+      <HelpIcon/>
       <div style={{ padding: '20px', textAlign: 'center', marginTop: '80px' }}>
         <div>
           <img src={avatar} alt="Profile" style={{ width: "150px", height: "150px", borderRadius: "50%" }} />

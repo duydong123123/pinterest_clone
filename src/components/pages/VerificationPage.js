@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
 import { FaInstagram, FaGlobe } from 'react-icons/fa'; // Thêm icon từ react-icons
-
+import HelpIcon from '../HelpIcon';
 const Container = styled.div`
   width: 50%;
   margin: 0 auto;
@@ -78,6 +78,7 @@ const VerificationPage = () => {
     <>
       <LayoutSetting />
       <Header />
+      <HelpIcon />
       <Container>
         <Title>Tài khoản được xác nhận</Title>
         <SubTitle>

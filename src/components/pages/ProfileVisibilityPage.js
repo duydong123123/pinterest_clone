@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
-
+import HelpIcon from '../HelpIcon';
+import Footer from '../footer/Footer';
 const PageWrapper = styled.div`
   display: flex; /* Dùng flexbox để chia layout */
   width: 100%; /* Đảm bảo tổng chiều rộng không vượt quá 100% */
@@ -17,7 +18,7 @@ const SidebarWrapper = styled.div`
 const Container = styled.div`
   width: 70%; /* Nội dung chiếm 70% không gian */
   margin-left: 22%; /* Đẩy nội dung sang phải, tránh lấn vào sidebar */
-  padding-top: 90px;
+  padding-top: 95px;
 `;
 
 const Title = styled.h2`
@@ -96,7 +97,9 @@ const Switch = styled.input.attrs({ type: 'checkbox' })`
 const ProfileVisibilityPage = () => {
   return (
     <>
+    <Footer/>
       <Header />
+      <HelpIcon /> {/* Icon tr�� giúp */}
       <PageWrapper>
         <SidebarWrapper>
           <LayoutSetting /> {/* Sidebar */}

@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
-
+import HelpIcon from '../HelpIcon';
+import Footer from '../footer/Footer';
 const Container = styled.div`
   width: 50%;
   margin: 0 auto;
   padding-top: 90px;
+   margin-bottom: 100px;
 `;
 
 const Title = styled.h2`
@@ -86,14 +88,11 @@ const Select = styled.select`
   font-size: 14px;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
 const ManageAccountPage = () => {
   return (
     <>
+      <Footer/>
+      <HelpIcon />
       <LayoutSetting />
       <Header />
       <Container>
@@ -185,12 +184,6 @@ const ManageAccountPage = () => {
             <Button>Xóa tài khoản</Button>
           </FlexRow>
         </InputSection>
-
-        {/* Nút lưu và thiết lập lại */}
-        <ButtonGroup style={{ justifyContent: 'space-between' }}>
-          <Button>Thiết lập lại</Button>
-          <Button>Lưu</Button>
-        </ButtonGroup>
       </Container>
     </>
   );

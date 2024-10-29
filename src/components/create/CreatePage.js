@@ -3,7 +3,7 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header/Header'; // Đường dẫn tới Header component
 import Sidebar from './Sidebar'; // Đường dẫn tới Sidebar component
-
+import HelpIcon from '../HelpIcon';
 const CreatePage = () => {
     const navigate = useNavigate();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -41,6 +41,7 @@ const CreatePage = () => {
     return (
         <>
             <Header />
+            <HelpIcon />
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div style={{
                 padding: '20px',

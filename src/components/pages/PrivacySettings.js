@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
+import Footer from '../footer/Footer';
+import HelpIcon from '../HelpIcon';
 
 const Container = styled.div`
   width: 50%;
@@ -74,35 +76,14 @@ const ActionButton = styled.button`
   }
 `;
 
-const BottomButtons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const SaveButton = styled.button`
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border-radius: 20px;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #45a049;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-`;
 
 const PrivacySettings = () => {
   return (
     <>
       <LayoutSetting />
       <Header />
+      <HelpIcon />
+      <Footer />
       <Container>
         <Title>Quyền riêng tư và dữ liệu</Title>
         <SubTitle>
@@ -153,11 +134,6 @@ const PrivacySettings = () => {
             <ActionButton>Bắt đầu yêu cầu</ActionButton>
           </ButtonContainer>
         </Section>
-
-        <BottomButtons>
-          <ActionButton>Thiết lập lại</ActionButton>
-          <SaveButton>Lưu</SaveButton>
-        </BottomButtons>
       </Container>
     </>
   );

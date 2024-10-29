@@ -1,0 +1,35 @@
+.footer {
+    display: flex;
+    justify-content: center; /* Căn giữa nút */
+    padding: 20px;
+    background-color: #f7f7f7; /* Màu nền của footer */
+    box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); /* Bóng nhẹ phía trên */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-button {
+    background-color: #e0e0e0; /* Màu nền xám nhẹ */
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 25px; /* Bo tròn nút */
+    font-size: 16px;
+    color: #555; /* Màu chữ xám */
+    cursor: pointer;
+  }
+  
+  .footer-button:first-child {
+    margin-left: 0; /* Xóa margin-left của nút đầu tiên */
+  }
+  
+  .footer-button:hover {
+    background-color: #d6d6d6; /* Màu nền khi hover */
+  }
+  
+  .footer-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Hiệu ứng khi nút được focus */
+  }
+  

@@ -2,19 +2,24 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
+import HelpIcon from '../HelpIcon';
 
 const Container = styled.div`
   display: flex;
+  margin-top: 0;
+  width: 100%;
+  align-items: flex-start; /* Căn chỉnh cả sidebar và content ở trên cùng */
 `;
 
 const SidebarWrapper = styled.div`
   width: 20%;
+  margin-top: 0; /* Đảm bảo không bị đẩy xuống */
 `;
 
 const Content = styled.div`
   width: 80%;
-  padding-left: 20px;
-  margin-top: 90px;
+  padding-left: 30px;
+  margin-top: 100px;
 `;
 
 const Title = styled.h2`
@@ -68,8 +73,6 @@ const CardButton = styled.button`
 `;
 
 const Image = styled.img`
-  width: 700px;
-  height: 400px; /* Giới hạn chiều cao của ảnh */
   object-fit: cover; /* Đảm bảo ảnh không bị biến dạng */
   border-radius: 10px;
   margin-bottom: 15px; /* Tạo khoảng cách giữa ảnh và nút */
@@ -87,6 +90,7 @@ const NewsFeedSettings = () => {
   return (
     <>
       <Header />
+      <HelpIcon />
       <Container>
         <SidebarWrapper>
           <LayoutSetting /> {/* Sidebar */}
@@ -115,6 +119,9 @@ const NewsFeedSettings = () => {
           </TabButtons>
 
           {/* Tab Content */}
+          <p>
+            Ẩn các ý tưởng liên quan đến Ghim bạn đã lưu hoặc đã nhấn vào để xem cận cảnh gần đây.
+          </p>
           {activeTab === 'activity' && (
             <>
               <Card>
@@ -122,7 +129,7 @@ const NewsFeedSettings = () => {
                   <p>Ghim bạn đã xem lúc hôm nay</p>
                   <CardButton>Bật tất cả</CardButton>
                 </CardHeader>
-                <Image src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/anh-phong-canh-66-1.jpg" alt="Pin" />
+                <Image style={{ width: '200px', height: '300px' }} src="https://i.pinimg.com/236x/9d/33/28/9d33288070f26522544339c03e0b8cd9.jpg" alt="Pin" />
               </Card>
 
               <Card>
@@ -130,7 +137,7 @@ const NewsFeedSettings = () => {
                   <p>Ghim bạn đã xem lúc 6 ngày trước</p>
                   <CardButton>Bật tất cả</CardButton>
                 </CardHeader>
-                <Image src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/anh-phong-canh-66-1.jpg" alt="Pin" />
+                <Image style={{ width: '500px', height: '300px' }} src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/anh-phong-canh-66-1.jpg" alt="Pin" />
               </Card>
             </>
           )}

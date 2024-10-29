@@ -6,7 +6,7 @@ import Header from '../header/Header';
 const Sidebar = styled.div`
   width: 20%;
   padding-right: 20px;
-  border-right: 1px solid #ddd;
+  // border-right: 1px solid #ddd;
   font-size: 14px;
   margin-top: 90px;
   position: fixed;

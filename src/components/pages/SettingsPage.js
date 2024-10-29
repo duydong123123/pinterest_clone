@@ -3,13 +3,27 @@ import styled from 'styled-components';
 import Header from '../header/Header';
 import profilePicture from "../../images/avatar-cute-vui-nhon.jpg"; // Đường dẫn tới ảnh đại diện
 import LayoutSetting from '../sidebar/LayoutSetting';
+import HelpIcon from '../HelpIcon';
+import Footer from '../footer/Footer';
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu là 100% */
+`;
+
+const Content = styled.div`
+  flex: 5; /* Chiếm khoảng trống còn lại để footer luôn ở cuối */
+  display: flex;
+  padding: 20px;
+  
+`;
 
 const Container = styled.div`
-  padding: 20px;
-  margin-top: 90px; /* Điều chỉnh khoảng cách để không bị trống quá nhiều */
   width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding-top: 70px;
+   margin-bottom: 100px;
 `;
 
 const Title = styled.h2`
@@ -80,42 +94,14 @@ const UrlPreview = styled.p`
   margin-top: 5px;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-`;
-
-const ResetButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
-
-const SaveButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
-
 const SettingsPage = () => {
   return (
-    <>
+    <PageWrapper>
       <Header />
-      <div style={{ display: 'flex' }}>
-        <LayoutSetting />
+      <HelpIcon />
+      <LayoutSetting />
+      <Content>
+        
         <Container>
           <Title>Chỉnh sửa hồ sơ</Title>
           <SubTitle>Hãy giữ riêng tư thông tin cá nhân của bạn. Thông tin bạn thêm vào đây hiển thị cho bất kỳ ai có thể xem hồ sơ của bạn.</SubTitle>
@@ -149,13 +135,10 @@ const SettingsPage = () => {
             <UrlPreview>www.pinterest.com/duydong19032002</UrlPreview>
           </InputSection>
 
-          <ButtonGroup>
-            <ResetButton>Thiết lập lại</ResetButton>
-            <SaveButton>Lưu</SaveButton>
-          </ButtonGroup>
         </Container>
-      </div>
-    </>
+      </Content>
+      <Footer />
+    </PageWrapper>
   );
 };
 

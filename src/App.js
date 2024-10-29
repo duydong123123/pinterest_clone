@@ -34,6 +34,7 @@ import PrivacySettings from "./components/pages/PrivacySettings";
 import SecuritySettings from "./components/pages/SecuritySettings";
 import BrandContent from "./components/pages/BrandContent";
 import ReportPortal from "./components/pages/ReportPortal";
+import HelpIcon from "./components/HelpIcon";
 
 // trang chủ
 function MainApp() {
@@ -114,9 +115,7 @@ function MainApp() {
             {pin.description && <Title><span>{pin.description}</span></Title>}
             {pin.user && <User><img src={pin.user.profile_image.small} alt="User" /><span>{pin.user.instagram_username}</span></User>}
         </PinContainer>
-    ));
-    
-    
+    )); 
     return (
         <>
             <Header/>
@@ -125,6 +124,7 @@ function MainApp() {
             </PinGrid>
             {isLoading && <Loading src={loading} alt="Loading" />}
             {error && "Error: " + error}
+            <HelpIcon />
         </>
     );
 }
@@ -139,7 +139,6 @@ export default function AppWrapper() {
             <Route path="/add-account" element={<AddAccountPage />} /> {/* Route thêm trang tk */}
             <Route path="/upgrade" element={<UpgradeToBusiness/>} /> {/* Route cho trang chuyển đổi */}
             <Route path="/ReportPortal" element={<ReportPortal />} /> {/* Route cho trang báo cáo */}
-
 
             <Route path="/settings" element={<LayoutSetting />} /> 
             <Route path="/user-profile" element={<UserProfilePage />} />

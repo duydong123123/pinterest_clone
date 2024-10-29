@@ -2,12 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../header/Header';
 import LayoutSetting from '../sidebar/LayoutSetting';
-
+import HelpIcon from '../HelpIcon';
+import Footer from '../footer/Footer';
 const Container = styled.div`
   width: 50%;
   margin: 0 auto;
   padding-top: 90px;
+  padding-bottom: 80px; /* khoảng trống để tránh che khuất */
+   height: calc(100vh - 180px); /* Điều chỉnh chiều cao để chừa chỗ cho header và footer */
+  overflow-y: auto; /* Tạo khu vực cuộn */
 `;
+
 
 const Title = styled.h2`
   font-size: 24px;
@@ -92,6 +97,7 @@ const Switch = styled.input.attrs({ type: 'checkbox' })`
   outline: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  
 
   &:checked {
     background-color: #333;
@@ -120,42 +126,14 @@ const Message = styled.p`
   margin-bottom: 10px;
 `;
 
-const ButtonGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-`;
-
-const ResetButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  cursor: pointer;
-  border: none;
-  margin-right: 10px;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
-
-const SaveButton = styled.button`
-  padding: 10px 20px;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
 
 const SocialMediaSettings = () => {
   return (
     <>
       <LayoutSetting />
       <Header />
+      <HelpIcon />
+      <Footer />
       <Container>
         <Title>Quyền mạng xã hội</Title>
         <SubTitle>
@@ -248,12 +226,6 @@ const SocialMediaSettings = () => {
             <Switch />
           </SwitchContainer>
         </Section>
-
-        {/* Nút Thiết lập lại và Lưu */}
-        <ButtonGroup>
-          <ResetButton>Thiết lập lại</ResetButton>
-          <SaveButton>Lưu</SaveButton>
-        </ButtonGroup>
       </Container>
     </>
   );
